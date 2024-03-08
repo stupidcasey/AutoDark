@@ -71,4 +71,3 @@ def enable_dark_mode():
 
 # Call the function to enable Dark Mode in Edge
 enable_dark_mode()
-
