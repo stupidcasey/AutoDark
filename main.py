@@ -55,6 +55,7 @@ set_registry_value(color_prevalence_key_path, "ColorPrevalence", 1, winreg.REG_D
 
 
 def open_edge():
+    time.sleep(2)
     # Replace 'msedge' with 'msedge.exe' if needed
     subprocess.Popen(['C:\Program Files (x86)\Microsoft\Edge\Application\msedge'])
 

@@ -2,6 +2,14 @@ import winreg
 import time
 import pyautogui
 import subprocess
+import sys
+import ctypes
+
+pyautogui.FAILSAFE = False
+
+sys.stdout = open('output_log.txt', 'w')
+sys.stderr = open('error_log.txt', 'w')
+
 
 
 def enable_dark_mode():
@@ -24,7 +32,7 @@ def enable_light_mode():
         print(f"Error: {e}")
 
 
-# Example: Toggle between light and dark mode
+
 enable_dark_mode()
 
 
@@ -42,32 +50,45 @@ def set_registry_value(key_path, value_name, value_data, value_type=winreg.REG_S
         print(f"Error updating registry key: {e}")
 
 
-# Example usage for changing AccentColor in HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent
+# for changing AccentColor in HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent
 accent_color_key_path = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent"
-set_registry_value(accent_color_key_path, "AccentColor", 0x00FF00, winreg.REG_DWORD)
+set_registry_value(accent_color_key_path, "AccentColor", 0x0078D4, winreg.REG_DWORD)
 
-# Example usage for changing ColorPrevalence in HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize
+# for changing ColorPrevalence in HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize
 color_prevalence_key_path = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
 set_registry_value(color_prevalence_key_path, "ColorPrevalence", 1, winreg.REG_DWORD)
-
-
-
-
-
-def open_edge():
-    # Replace 'msedge' with 'msedge.exe' if needed
-    subprocess.Popen(['C:\Program Files (x86)\Microsoft\Edge\Application\msedge'])
 
 def enable_dark_mode():
     # Adjust sleep time based on your system's responsiveness
     time.sleep(2)
 
     # Open Microsoft Edge
-    open_edge()
+    subprocess.Popen(['C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'])
     time.sleep(1)
 
     # Simulate pressing the hotkey to enable Dark Mode in Dark Reader
     pyautogui.hotkey('alt', 'shift', 'd')  # Replace 'your_custom_hotkey' with the actual hotkey
 
+
+def set_wallpaper(image_path):
+    try:
+        SPI_SETDESKWALLPAPER = 20
+        # Set the wallpaper
+        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, image_path, 3)
+
+        error_code = ctypes.GetLastError()
+        error_message = ctypes.FormatMessageW(ctypes.FormatMessageW, 0, error_code)
+        print(f"Error {error_code}: {error_message}")
+
+
+        print("Wallpaper changed successfully.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Replace 'path/to/your/image.jpg' with the actual path to your image file
+image_path = r'C:\Windows\Web\Wallpaper\Theme1\BlueNight.jpg'
+set_wallpaper(image_path)
+
+
 # Call the function to enable Dark Mode in Edge
-enable_dark_mode()
+# enable_dark_mode()
