@@ -1,0 +1,3 @@
+Registry key updated: SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent\AccentColor
+Registry key updated: SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize\ColorPrevalence
+Error: module 'ctypes' has no attribute 'FormatMessageW'
