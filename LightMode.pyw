@@ -2,6 +2,8 @@ import winreg
 import pyautogui
 import sys
 import ctypes
+import os
+import subprocess
 
 pyautogui.FAILSAFE = False
 
@@ -37,6 +39,11 @@ def set_registry_value(key_path, value_name, value_data, value_type=winreg.REG_S
         print(f"Registry key updated: {key_path}\\{value_name}")
     except Exception as e:
         print(f"Error updating registry key: {e}")
+
+def start_clock():
+    os.chdir("C:\\Users\\Front Desk\\Desktop\\Caseys\\Project Kryptid Release\\Project Kryptid 1.3.3")
+
+    subprocess.run(["Project Kryptid.exe"])
 
 
 # for changing AccentColor in HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent
@@ -84,5 +91,6 @@ set_registry_value(color_prevalence_key_path, "ColorPrevalence", 0xFFFFFF, winre
 # Replace 'path/to/your/image.jpg' with the actual path to your image file
 image_path = r'C:\Windows\Web\Wallpaper\Theme1\BlueNight.jpg'
 set_wallpaper(image_path)
+start_clock()
 
 
